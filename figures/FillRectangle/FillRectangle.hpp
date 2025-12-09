@@ -1,8 +1,8 @@
 #ifndef FILL_RECTANGLE
 #define FILL_RECTANGLE
 
-#include <figures/HSeg/HSeg.hpp>
 #include <figures/IDraw.hpp>
+#include <figures/utils/utils.hpp>
 
 namespace top
 {
@@ -14,8 +14,8 @@ namespace top
     p_t next(p_t curr) const override;
 
   private:
-    Hseg bottom;
-    int w, h;
+    p_t left_bottom;
+    size_t w, h;
   };
 }
 

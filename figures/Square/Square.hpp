@@ -13,7 +13,8 @@ namespace top
     p_t next(p_t curr) const override;
 
   private:
-    Rectangle rect;
+    p_t left_bottom;
+    size_t w;
   };
 }
 

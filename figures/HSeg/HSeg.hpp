@@ -2,6 +2,7 @@
 #define HSEG
 
 #include <figures/IDraw.hpp>
+#include <figures/utils/utils.hpp>
 
 namespace top
 {

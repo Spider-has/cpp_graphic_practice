@@ -1,23 +1,24 @@
 #include <iostream>
 
 #include "canvas/canvas.hpp"
-#include "figures/utils.hpp"
+#include "figures/index.hpp"
 #include "pod/pod.hpp"
 
 int main()
 {
   using namespace top;
-  IDraw *f[3] = {};
+  IDraw *f[10] = {};
   p_t *p = nullptr;
   size_t s = 0;
+  size_t figure_k = 0;
 
   char *cnv = nullptr;
 
   int err = 0;
   try
   {
-    makeFigures(f, 3);
-    for (size_t i = 0; i < 3; i++)
+    makeFigures(f, figure_k);
+    for (size_t i = 0; i < figure_k; i++)
     {
       getPoints(*f[i], &p, s);
     }
@@ -31,7 +32,7 @@ int main()
     err = 1;
   }
 
-  for (size_t i = 0; i < 3; i++)
+  for (size_t i = 0; i < figure_k; i++)
   {
     delete f[i];
   }

@@ -17,9 +17,5 @@ top::p_t top::Hseg::begin() const
 
 top::p_t top::Hseg::next(p_t curr) const
 {
-  if (curr.x - start_.x < length_)
-  {
-    return {curr.x + 1, curr.y};
-  }
-  return start_;
+  return HSegNext(curr, start_, length_);
 }

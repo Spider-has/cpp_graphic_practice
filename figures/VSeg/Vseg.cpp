@@ -18,7 +18,5 @@ top::p_t top::Vseg::begin() const
 
 top::p_t top::Vseg::next(p_t curr) const
 {
-  if (curr.y - start_.y < length_)
-    return {curr.x, curr.y + 1};
-  return start_;
+  return VSegNext(curr, start_, length_);
 }
