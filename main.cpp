@@ -186,7 +186,7 @@ size_t top::figures::count(IDraw &d)
   {
     size_t k = 0;
     p_t p = d.begin();
-    while (d.next(p) == d.begin())
+    while (d.next(p) != d.begin())
     {
       k++;
       p = d.next(p);
@@ -320,18 +320,15 @@ void top::extend(p_t **old, size_t &old_s, p_t new_pt)
 
 size_t top::getPoints(const IDraw &figure, p_t **ps, size_t &size)
 {
+  size_t initial = size;
   p_t curr_point = figure.begin();
   extend(ps, size, curr_point);
   size_t count = size;
-  size_t initial = size;
   while (figure.begin() != figure.next(curr_point))
   {
-    if (count >= size)
-    {
-      extend(ps, size, curr_point);
-    }
+
     curr_point = figure.next(curr_point);
-    (*ps)[count] = curr_point;
+    extend(ps, size, curr_point);
     count++;
   }
   return count - initial;
