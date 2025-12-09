@@ -9,5 +9,6 @@ void top::makeFigures(IDraw **f, size_t &size)
   f[4] = new FilledSquare({40, 15}, 5);
   f[5] = new Hseg({40, 4}, 10);
   f[6] = new Dot(3, 3);
-  size = 7;
+  f[7] = new InclinedSeg({60, 20}, 5);
+  size = 8;
 }

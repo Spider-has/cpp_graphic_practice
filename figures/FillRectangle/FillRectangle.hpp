@@ -9,7 +9,7 @@ namespace top
 
   struct FilledRectangle : IDraw
   {
-    FilledRectangle(p_t left_bot, int width, int height);
+    FilledRectangle(p_t left_bot, size_t width, size_t height);
     p_t begin() const override;
     p_t next(p_t curr) const override;
 

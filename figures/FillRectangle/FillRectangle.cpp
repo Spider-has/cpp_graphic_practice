@@ -1,13 +1,13 @@
 #include <figures/FillRectangle/FillRectangle.hpp>
 
-top::FilledRectangle::FilledRectangle(p_t left_bot, int width, int height):
+top::FilledRectangle::FilledRectangle(p_t left_bot, size_t width, size_t height):
     left_bottom(left_bot),
-    w(width - 1),
-    h(height - 1)
+    w(width ? width - 1 : 0),
+    h(height ? height - 1 : 0)
 {
-  if (height <= 0 || width <= 0)
+  if (!width || !height)
   {
-    throw std::runtime_error("height and width can't be zero or lower");
+    throw std::invalid_argument("filled rectangle sides must be more than zero");
   }
 }
 
@@ -18,5 +18,5 @@ top::p_t top::FilledRectangle::begin() const
 
 top::p_t top::FilledRectangle::next(p_t curr) const
 {
-  return FilledRectangleNext(curr, left_bottom, w, h);
+  return filledRectangleNext(curr, left_bottom, w, h);
 }

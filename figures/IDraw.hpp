@@ -16,7 +16,6 @@ namespace top
 
   // TODO:: Круг
   // TODO:: косая линия
-
 }
 
 #endif

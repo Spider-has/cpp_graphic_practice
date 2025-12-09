@@ -1,4 +1,5 @@
 #include "figures/utils/utils.hpp"
+#include "utils.hpp"
 
 size_t top::count(IDraw &d)
 {
@@ -30,7 +31,7 @@ size_t top::getPoints(const IDraw &figure, p_t **ps, size_t &size)
   return count - initial;
 }
 
-top::p_t top::HSegNext(p_t curr, p_t start, size_t len)
+top::p_t top::hSegNext(p_t curr, p_t start, size_t len)
 {
   if (curr.x - start.x < len)
   {
@@ -39,22 +40,22 @@ top::p_t top::HSegNext(p_t curr, p_t start, size_t len)
   return start;
 }
 
-top::p_t top::VSegNext(p_t curr, p_t start, size_t len)
+top::p_t top::vSegNext(p_t curr, p_t start, size_t len)
 {
   if (curr.y - start.y < len)
     return {curr.x, curr.y + 1};
   return start;
 }
 
-top::p_t top::RectangleNext(p_t curr, p_t left_bottom, size_t w, size_t h)
+top::p_t top::rectangleNext(p_t curr, p_t left_bottom, size_t w, size_t h)
 {
   if (curr.x == left_bottom.x && curr.y < left_bottom.y + h)
   {
-    return VSegNext(curr, left_bottom, h);
+    return vSegNext(curr, left_bottom, h);
   }
   else if (curr.y == left_bottom.y + h && curr.x < left_bottom.x + w)
   {
-    return HSegNext(curr, left_bottom, w);
+    return hSegNext(curr, left_bottom, w);
   }
   else if (curr.x == left_bottom.x + w && curr.y > left_bottom.y)
   {
@@ -67,11 +68,11 @@ top::p_t top::RectangleNext(p_t curr, p_t left_bottom, size_t w, size_t h)
   return left_bottom;
 }
 
-top::p_t top::FilledRectangleNext(p_t curr, p_t left_bottom, size_t w, size_t h)
+top::p_t top::filledRectangleNext(p_t curr, p_t left_bottom, size_t w, size_t h)
 {
   if (curr.x - left_bottom.x < w)
   {
-    return HSegNext(curr, left_bottom, w);
+    return hSegNext(curr, left_bottom, w);
   }
   else if (curr.y - left_bottom.y < h)
   {
