@@ -1,5 +1,4 @@
-
-#include <figures/Dot/Dot.hpp>
+#include "dot.hpp"
 
 top::Dot::Dot(int x, int y):
     IDraw(),

@@ -1,8 +1,8 @@
-#ifndef IDRAW
-#define IDRAW
+#ifndef IDRAW_HPP
+#define IDRAW_HPP
 
-#include "canvas/canvas.hpp"
-#include "pod/pod.hpp"
+#include "geom.hpp"
+#include <cstddef>
 
 namespace top
 {
@@ -14,8 +14,7 @@ namespace top
     virtual ~IDraw() = default;
   };
 
-  // TODO:: Круг
-  // TODO:: косая линия
+  size_t getPoints(const IDraw &figure, p_t **ps, size_t &size);
 }
 
 #endif

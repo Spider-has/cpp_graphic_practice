@@ -1,11 +1,10 @@
-#ifndef COMMON
-#define COMMON
+#ifndef GEOM_HPP
+#define GEOM_HPP
 
-#include <iostream>
+#include <cstddef>
 
 namespace top
 {
-
   struct p_t
   {
     int x, y;
@@ -20,9 +19,10 @@ namespace top
     p_t right_top;
   };
 
-  p_t *extanded(const p_t *old, size_t old_s, size_t new_s);
+  size_t cols(frame_t f);
+  size_t rows(frame_t f);
 
-  void extend(p_t **old, size_t &old_s, p_t new_pt);
+  frame_t buildFrame(const p_t *ps, size_t s);
 }
 
 #endif

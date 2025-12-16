@@ -1,14 +1,13 @@
-#ifndef DOT
-#define DOT
+#ifndef DOT_HPP
+#define DOT_HPP
 
-#include <figures/IDraw.hpp>
+#include "idraw.hpp"
 
 namespace top
 {
   struct Dot : IDraw
   {
     Dot(int x, int y);
-
     p_t begin() const override;
     p_t next(p_t) const override;
 
