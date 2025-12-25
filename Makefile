@@ -1,19 +1,12 @@
-CXX=g++
-SRCDIR=.
-INCLUDE=-I$(SRCDIR)
 
-SOURCES := $(shell find $(SRCDIR) -type f -name '*.cpp' 2>/dev/null)
+CPPFLAGS+=-Wall -Wextra -std=c++11
 
-OUT=main.out
+SRC=$(wildcard *.cpp)
 
-.PHONY: run
-run: 
-	$(CXX) $(INCLUDE) $(SOURCES) -o $(OUT)
+OBJ=$(SRC:%.cpp=%.o)
 
-.PHONY: all
-all: clean run
+paint: $(OBJ)
+	$(CXX) $^ -o $@
 
-
-.PHONY: clean
-clean:
-	rm -f $(OUT)
+clean: 
+	$(RM) -rf $(OBJ) paint
