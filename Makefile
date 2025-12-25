@@ -1,5 +1,5 @@
 
-CPPFLAGS+=-Wall -Wextra -std=c++11
+CPPFLAGS+=-Wall -Wextra -std=c++17
 
 SRC_ALL=$(wildcard *.cpp)
 SRC=$(filter-out cli.cpp, $(SRC_ALL))
