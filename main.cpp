@@ -13,11 +13,12 @@ int main()
   char *cnv = nullptr;
 
   int err = 0;
+  int b;
   try
   {
     f[0] = new top::Dot(0, 0);
-    f[1] = new top::Dot(10, 10);
-    f[2] = new top::Dot(-10, -10);
+    f[1] = new top::Dot(5, 5);
+    f[2] = new top::Dot(-5, -5);
     for (size_t i = 0; i < figure_k; i++)
     {
       getPoints(*f[i], &p, s);

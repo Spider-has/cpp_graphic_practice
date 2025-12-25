@@ -1,12 +1,18 @@
 
 CPPFLAGS+=-Wall -Wextra -std=c++11
 
-SRC=$(wildcard *.cpp)
+SRC_ALL=$(wildcard *.cpp)
+SRC=$(filter-out cli.cpp, $(SRC_ALL))
 
+OBJ_ALL=$(SRC_ALL:%.cpp=%.o)
 OBJ=$(SRC:%.cpp=%.o)
 
 paint: $(OBJ)
 	$(CXX) $^ -o $@
 
+cli: cli.o
+	$(CXX) $^ -o $@
+
 clean: 
-	$(RM) -rf $(OBJ) paint
+	$(RM) -rf $(OBJ_ALL) paint cli
+

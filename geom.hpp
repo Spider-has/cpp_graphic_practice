@@ -9,7 +9,6 @@ namespace top
   {
     int x, y;
   };
-
   bool operator==(p_t a, p_t b);
   bool operator!=(p_t a, p_t b);
 
