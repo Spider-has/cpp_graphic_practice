@@ -3,22 +3,6 @@
 #include <iostream>
 #include <limits>
 
-void hi(std::istream &is, std::ostream &os)
-{
-  unsigned int i = 0;
-  if (!(is >> i))
-  {
-    throw std::runtime_error("hi expects unsigned int");
-  }
-
-  os << "< HI: " << i << "! >" << '\n';
-}
-
-void hello(std::istream &is, std::ostream &os)
-{
-  os << "< HELLO! >\n";
-}
-
 void skip_line_chars()
 {
   std::cin >> std::noskipws;
@@ -30,10 +14,44 @@ void skip_line_chars()
   std::cin >> std::skipws;
 }
 
-void skip_line()
+void skip_line(std::istream &is)
 {
-  std::cin.clear();
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void hi(std::istream &is, std::ostream &os, size_t &context)
+{
+  unsigned int i = 0;
+  if (!(is >> i))
+  {
+    throw std::runtime_error("hi expects unsigned int");
+  }
+  skip_line(is);
+
+  os << "< HI: " << i << "! >" << '\n';
+}
+
+void hello(std::istream &is, std::ostream &os, size_t &context)
+{
+  os << "< HELLO! >\n";
+}
+
+void next(std::istream &is, std::ostream &os, size_t &context)
+{
+  unsigned int i = 0;
+  if (!(is >> i))
+  {
+    throw std::runtime_error("hi expects unsigned int");
+  }
+  context = i;
+  skip_line(is);
+
+  os << "< next: " << i << "! >" << '\n';
+}
+
+void last(std::istream &is, std::ostream &os, size_t &context)
+{
+  os << "< context: " << context << " >" << '\n';
 }
 
 std::istream &getword(std::istream &is, char *buffer, size_t k, size_t &size, bool (*c)(char))
@@ -96,12 +114,14 @@ struct Cmd
 
 int main()
 {
-  constexpr size_t cmd_count = 2;
+  constexpr size_t cmd_count = 4;
   std::cout << "CLI\n";
-  using cmd_t = void (*)(std::istream &, std::ostream &);
+  using cmd_t = void (*)(std::istream &, std::ostream &, size_t &);
 
-  cmd_t cmds[cmd_count] = {hi, hello};
-  const char *const cmds_text[] = {"hi", "hello"};
+  size_t context = 0;
+
+  cmd_t cmds[cmd_count] = {hi, hello, next, last};
+  const char *const cmds_text[] = {"hi", "hello", "next", "last"};
 
   constexpr size_t buff_capacity = 255;
   char word[buff_capacity + 1] = {};
@@ -112,7 +132,8 @@ int main()
     if (std::cin.fail())
     {
       std::cerr << " < UNKNOWN COMMAND >\n";
-      skip_line();
+      std::cin.clear(std::cin.rdstate() ^ std::ios::failbit);
+      skip_line(std::cin);
     }
     else
     {
@@ -121,7 +142,7 @@ int main()
       {
         try
         {
-          cmds[i](std::cin, std::cout);
+          cmds[i](std::cin, std::cout, context);
         }
         catch (const std::exception &e)
         {
@@ -130,9 +151,8 @@ int main()
           {
             std::cin.clear(std::cin.rdstate() ^ std::ios::failbit);
           }
+          skip_line(std::cin);
         }
-        using lim_t = std::numeric_limits<std::streamsize>;
-        std::cin.ignore(lim_t::max(), '\n');
       }
       else
       {
